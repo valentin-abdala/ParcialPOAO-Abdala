@@ -1,23 +1,36 @@
 package LectoresFelices;
 
+import java.time.LocalDate;
+
 public class Libros {
 	private String titulo;
 	private String autor;
-	private int anoLanzamiento;
-	private int mesLanzamiento;
-	private int diaLanzamiento;
+	private LocalDate lanzamiento;
 	private boolean disponible;
-	private String fechaPrestamo;
+	private LocalDate fechaPrestamo;
 	private boolean miembroPlus;
+	private String nombrePrestatario;
+	private int telefonoPrestatario;
 	
-	public Libros(String titulo, String autor, int anoLanzamiento, int mesLanzamiento, int diaLanzamiento, boolean disponible, String fechaPrestamo, boolean miembroPlus) {
+	public Libros(String titulo, String autor, LocalDate lanzamiento, boolean disponible, LocalDate fechaPrestamo, boolean miembroPlus, String nombrePrestatario, int telefonoPrestatario) {
 		this.titulo = titulo;
 		this.autor = autor;
-		this.anoLanzamiento = anoLanzamiento;
-		this.mesLanzamiento = mesLanzamiento;
-		this.diaLanzamiento = diaLanzamiento;
+		this.lanzamiento = lanzamiento;
 		this.disponible = disponible;
 		this.fechaPrestamo = fechaPrestamo;
 		this.miembroPlus = miembroPlus;
+		this.nombrePrestatario = nombrePrestatario;
+		this.telefonoPrestatario = telefonoPrestatario;
+	}
+	
+	public Libros(String titulo, String autor, LocalDate lanzamiento, boolean disponible) {
+		this.titulo = titulo;
+		this.autor = autor;
+		this.lanzamiento = lanzamiento;
+		this.disponible = disponible;
+		this.fechaPrestamo = null;
+		this.miembroPlus = false;
+		this.nombrePrestatario = "Sin prestatario";
+		this.telefonoPrestatario = 00000000;
 	}
 }
