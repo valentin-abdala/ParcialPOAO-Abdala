@@ -10,9 +10,10 @@ public class main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String libroPrestado;
+		String libroConsultado;
 		
 		JOptionPane.showMessageDialog(null, "Iniciando administración de Lectores Felices...", "Iniciando", JOptionPane.DEFAULT_OPTION, new ImageIcon(main.class.getResource("/img/libreria.jpg")));
-		String[] opciones = { "Prestar libro", "Consultar colección", "Salir" };
+		String[] opciones = { "Prestar libro", "Consultar libro", "Salir" };
 		
 		LocalDate hpLanzamiento = LocalDate.of(1997, 6, 26);
 		LocalDate esdlaLanzamiento = LocalDate.of(1954, 7, 29);
@@ -48,11 +49,28 @@ public class main {
 					break;
 				}
 				break;
+			case 1:
+				libroConsultado = (String) JOptionPane.showInputDialog(null, "Selecciona el libro.", "Consulta de libro",
+						JOptionPane.PLAIN_MESSAGE, null, coleccion, coleccion[0]);
+				switch (libroConsultado) {
+				case "Harry Potter":
+					hp.consultarLibro();
+					break;
+				case "El Señor de los Anillos":
+					esdla.consultarLibro();
+					break;
+				case "Juego de Tronos":
+					jdt.consultarLibro();
+					break;
+				case "Orgullo y Prejuicio":
+					oyp.consultarLibro();
+					break;
+				}
+				break;
 				
 			}
 			
 			opcion = JOptionPane.showOptionDialog(null, "Bienvenido", "Menu Principal", 0, JOptionPane.DEFAULT_OPTION, null, opciones, opciones[0]);
 		} while (opcion != 2);
 	}
-
 }

@@ -122,6 +122,15 @@ public class Libros {
 			}
 		}
 	}
+	
+	public void consultarLibro() {
+		if (!this.disponible) {
+			JOptionPane.showMessageDialog(null, "Libro: " + this.titulo + "\nAutor: " + this.autor + "\nFecha de lanzamiento: " + lanzamiento + "\nDisponible: Prestado hasta " + fechaDevolucion + "\nPrestatario: " + this.nombrePrestatario + "\nTeléfono: " + this.telefonoPrestatario);
+		} else {
+			JOptionPane.showMessageDialog(null, "Libro: " + this.titulo + "\nAutor: " + this.autor + "\nFecha de lanzamiento: " + lanzamiento + "\nDisponible: Sí" + "\nPrestatario: " + this.nombrePrestatario + "\nTeléfono: " + this.telefonoPrestatario);
+		}
+	}
+	
 	public static boolean validarCadena(String cadena) {
 		if (cadena.isEmpty()) {
 			return false;
