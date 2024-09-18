@@ -19,12 +19,12 @@ public class main {
 		
 		String[] coleccion = { "Harry Potter", "El Señor de los Anillos", "Juego de Tronos", "Orgullo y Prejuicio"};
 		
-		Libros harryPotter = new Libros("Harry Potter", "JK Rowling", harryPotterLanzamiento, false, harryPotterPrestamo, true, "Gamaliel Quiroz", 1127890760 );
+		Libros harryPotter = new Libros("Harry Potter", "JK Rowling", harryPotterLanzamiento, true);
 		
 		int opcion = JOptionPane.showOptionDialog(null, "Bienvenido", "Menu Principal", 0, JOptionPane.DEFAULT_OPTION, null, opciones, opciones[0]);
 		switch (opcion) {
 		case 0:
-			libroPrestado = (String) JOptionPane.showInputDialog(null, "Selecciona el libro.", "Prestámo de libro",
+			libroPrestado = (String) JOptionPane.showInputDialog(null, "Selecciona el libro.", "Préstamo de libro",
 					JOptionPane.PLAIN_MESSAGE, null, coleccion, coleccion[0]);
 			
 			switch (libroPrestado) {
