@@ -99,9 +99,13 @@ public class Libros {
 			}
 		} else {
 			setDisponible(false);
-			nombre = JOptionPane.showInputDialog("Ingresa el nombre del prestatario.");
+			do {
+				nombre = JOptionPane.showInputDialog("Ingresa el nombre del prestatario.");
+			} while (!validarCadena(nombre));
 			setNombre(nombre);
-			telefono = Integer.parseInt(JOptionPane.showInputDialog("Ingresa el teléfono del prestatario."));
+			do {
+				telefono = Integer.parseInt(JOptionPane.showInputDialog("Ingresa el teléfono del prestatario."));
+			} while (!validarNumero(telefono));
 			setTelefono(telefono);
 			do {
 				miembroPlus = JOptionPane.showConfirmDialog(null, "¿Es miembro plus?");
@@ -116,9 +120,21 @@ public class Libros {
 				setFechaDevolucion(this.fechaPrestamo.plusDays(14));
 				JOptionPane.showMessageDialog(null, "Préstamo realizado con éxito.\nLibro: " + this.titulo + "\nPrestatario: " + nombre + "\nTeléfono del prestatario: " + telefono + "\nFecha del préstamo: " + fechaPrestamo + "\nHora del préstamo: " + LocalTime.now() + "\nFecha de devolución: " + this.fechaPrestamo.plusDays(14));
 			}
-			
-			
-			
+		}
+	}
+	public static boolean validarCadena(String cadena) {
+		if (cadena.isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	public static boolean validarNumero(int numero) {
+		if (numero < 0) {
+			return false;
+		} else {
+			return true;
 		}
 	}
 }
