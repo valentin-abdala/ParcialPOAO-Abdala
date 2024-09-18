@@ -1,6 +1,7 @@
 package LectoresFelices;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.swing.JOptionPane;
 
@@ -38,6 +39,30 @@ public class Libros {
 		this.telefonoPrestatario = 00000000;
 	}
 	
+	public boolean getDisponible() {
+		return this.disponible;
+	}
+	
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
+	}
+	
+	public LocalDate getFechaPrestamo() {
+		return this.fechaPrestamo;
+	}
+	
+	public void setFechaPrestamo(LocalDate fecha) {
+		this.fechaPrestamo = fecha;
+	}
+	
+	public LocalDate getFechaDevolucion() {
+		return this.fechaDevolucion;
+	}
+	
+	public void setFechaDevolucion(LocalDate fecha) {
+		this.fechaDevolucion = fecha;
+	}
+	
 	public String getNombre() {
 		return this.nombrePrestatario;
 	}
@@ -62,18 +87,10 @@ public class Libros {
 		this.miembroPlus = miembroPlus;
 	}
 	
-	public LocalDate getFechaPrestamo() {
-		return this.fechaPrestamo;
-	}
-	
-	public void setFechaPrestamo(LocalDate fecha) {
-		this.fechaPrestamo = fecha;
-	}
-	
 	public void prestarLibro() {
 		String nombre;
 		int telefono;
-		String miembroPlus;
+		int miembroPlus;
 		if (!this.disponible) {
 			if (this.miembroPlus) {
 				JOptionPane.showMessageDialog(null, this.titulo + " no se encuentra disponible.\n" + this.nombrePrestatario + " lo tiene desde " + this.fechaPrestamo + " y al ser miembro plus tiene hasta un mes hasta " + this.fechaPrestamo.plusDays(30) + ".");
@@ -81,19 +98,26 @@ public class Libros {
 				JOptionPane.showMessageDialog(null, this.titulo + " no se encuentra disponible.\n" + this.nombrePrestatario + " lo tiene desde " + this.fechaPrestamo + " hasta " + this.fechaPrestamo.plusDays(14) + ".");
 			}
 		} else {
+			setDisponible(false);
 			nombre = JOptionPane.showInputDialog("Ingresa el nombre del prestatario.");
 			setNombre(nombre);
 			telefono = Integer.parseInt(JOptionPane.showInputDialog("Ingresa el teléfono del prestatario."));
 			setTelefono(telefono);
 			do {
-				miembroPlus = JOptionPane.showInputDialog("¿Es miembro plus?");
-			} while (!miembroPlus.equalsIgnoreCase("si") || !miembroPlus.equalsIgnoreCase("no"));
+				miembroPlus = JOptionPane.showConfirmDialog(null, "¿Es miembro plus?");
+			} while (miembroPlus == JOptionPane.CANCEL_OPTION);
 			setFechaPrestamo(LocalDate.now());
-			if (miembroPlus.equalsIgnoreCase("si")) {
+			if (miembroPlus == JOptionPane.YES_OPTION) {
 				setMiembroPlus(true);
-			} else if (miembroPlus.equalsIgnoreCase("no")) {
+				setFechaDevolucion(this.fechaPrestamo.plusDays(30));
+				JOptionPane.showMessageDialog(null, "Préstamo realizado con éxito.\nLibro: " + this.titulo + "\nPrestatario: " + nombre + "\nTeléfono del prestatario: " + telefono + "\nFecha del préstamo: " + fechaPrestamo + "\nHora del préstamo: " + LocalTime.now() + "\nFecha de devolución: " + this.fechaPrestamo.plusDays(30));
+			} else if (miembroPlus == JOptionPane.NO_OPTION) {
 				setMiembroPlus(false);
+				setFechaDevolucion(this.fechaPrestamo.plusDays(14));
+				JOptionPane.showMessageDialog(null, "Préstamo realizado con éxito.\nLibro: " + this.titulo + "\nPrestatario: " + nombre + "\nTeléfono del prestatario: " + telefono + "\nFecha del préstamo: " + fechaPrestamo + "\nHora del préstamo: " + LocalTime.now() + "\nFecha de devolución: " + this.fechaPrestamo.plusDays(14));
 			}
+			
+			
 			
 		}
 	}
