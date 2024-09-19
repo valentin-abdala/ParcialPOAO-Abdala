@@ -179,12 +179,4 @@ public class Pacientes {
 			return true;
 		}
 	}
-	
-	public static boolean validarDouble(double numero) {
-		if (numero < 0) {
-			return false;
-		} else {
-			return true;
-		}
-	}
 }
