@@ -106,7 +106,7 @@ public class Pacientes {
 		int opcion;
 		
 		do {
-			opcion = JOptionPane.showOptionDialog(null, "Bienvenido", "Menu Principal", 0, JOptionPane.DEFAULT_OPTION, null, procedimientos, procedimientos[0]);
+			opcion = JOptionPane.showOptionDialog(null, this.nombreAnimal, "Menú", 0, JOptionPane.DEFAULT_OPTION, null, procedimientos, procedimientos[0]);
 			
 			switch (opcion) {
 			case 0:
@@ -116,7 +116,7 @@ public class Pacientes {
 				break;
 			case 1:
 				JOptionPane.showMessageDialog(null, "Tomando temperatura corporal de " + this.nombreAnimal + "...");
-				this.temperatura = (double)(Math.random() * 36 + 5);
+				this.temperatura = (double)(Math.random() * 5 + 36);
 				if (this.temperatura > 37) {
 					informe = informe + "\nTEMPERATURA\n" + "Temperatura: " + this.temperatura + "\nDebe tomar medicamento cada 8 horas.";
 				} else {
