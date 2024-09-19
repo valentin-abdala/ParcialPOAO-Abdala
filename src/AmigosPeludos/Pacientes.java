@@ -10,24 +10,28 @@ public class Pacientes {
 	private String animal;
 	private String raza;
 	private int edad;
-	private double peso;
-	private String sexo;
 	private String nombreDueno;
 	private int telefono;
 	private LocalDate fechaTurno;
 	private LocalTime horaTurno;
+	private double peso;
+	private double temperatura;
+	private int contracturas;
+	private int observaciones;
 	
-	public Pacientes(String nombreAnimal, String animal, String raza, int edad, double peso, String sexo, String nombreDueno, int telefono, LocalDate fechaTurno, LocalTime horaTurno) {
+	public Pacientes(String nombreAnimal, String animal, String raza, int edad, String sexo, String nombreDueno, int telefono, LocalDate fechaTurno, LocalTime horaTurno, double peso, double temperatura, int contracturas, int observaciones) {
 		this.nombreAnimal = nombreAnimal;
 		this.animal = animal;
 		this.raza = raza;
 		this.edad = edad;
-		this.peso = peso;
-		this.sexo = sexo;
 		this.nombreDueno = nombreDueno;
 		this.telefono = telefono;
 		this.fechaTurno = fechaTurno;
 		this.horaTurno = horaTurno;
+		this.peso = peso;
+		this.temperatura = temperatura;
+		this.contracturas = contracturas;
+		this.observaciones = observaciones;
 	}
 	
 	public Pacientes(String nombreAnimal, String animal, String raza, int edad, String nombreDueno, int telefono, LocalDate fechaTurno, LocalTime horaTurno) {
@@ -36,64 +40,128 @@ public class Pacientes {
 		this.raza = raza;
 		this.edad = edad;
 		this.peso = 0;
-		this.sexo = "Sin definir";
 		this.nombreDueno = nombreDueno;
 		this.telefono = telefono;
 		this.fechaTurno = fechaTurno;
 		this.horaTurno = horaTurno;
+		this.peso = 0;
+		this.temperatura = 0;
+		this.contracturas = 0;
+		this.observaciones = 0;
 	}
 	
-	public Pacientes crearTurno() {
-		do {
-			this.nombreAnimal = JOptionPane.showInputDialog("Ingresa el nombre del paciente.");
-		} while (!validarCadena(this.nombreAnimal));
+	public static Pacientes crearTurno() {
+		String nombreAnimal, animal, raza, nombreDueno;
+		int edad, telefono, mes, dia, hora, minuto;
 		
 		do {
-			this.animal = JOptionPane.showInputDialog("Ingresa el tipo de animal del paciente.");
-		} while (!validarCadena(this.animal));
+			nombreAnimal = JOptionPane.showInputDialog("Ingresa el nombre del paciente.");
+		} while (!validarCadena(nombreAnimal));
 		
 		do {
-			this.raza = JOptionPane.showInputDialog("Ingresa la raza del paciente.");
-		} while (!validarCadena(this.raza));
+			animal = JOptionPane.showInputDialog("Ingresa el tipo de animal del paciente.");
+		} while (!validarCadena(animal));
 		
 		do {
-			this.edad = Integer.parseInt(JOptionPane.showInputDialog("Ingresa la edad del paciente."));
-		} while (!validarInt(this.edad));
+			raza = JOptionPane.showInputDialog("Ingresa la raza del paciente.");
+		} while (!validarCadena(raza));
 		
 		do {
-			this.nombreDueno = JOptionPane.showInputDialog("Ingresa el nombre del dueño.");
-		} while (!validarCadena(this.nombreDueno));
+			edad = Integer.parseInt(JOptionPane.showInputDialog("Ingresa la edad del paciente."));
+		} while (!validarInt(edad));
 		
 		do {
-			this.telefono = Integer.parseInt(JOptionPane.showInputDialog("Ingresa el teléfono del dueño."));
-		} while (!validarInt(this.telefono));
+			nombreDueno = JOptionPane.showInputDialog("Ingresa el nombre del dueño.");
+		} while (!validarCadena(nombreDueno));
 		
-		int mes;
+		do {
+			telefono = Integer.parseInt(JOptionPane.showInputDialog("Ingresa el teléfono del dueño."));
+		} while (!validarInt(telefono));
+		
 		do {
 			mes = Integer.parseInt(JOptionPane.showInputDialog("Ingresa el mes del turno."));
 		} while (!validarInt(mes));
 		
-		int dia;
 		do {
 			dia = Integer.parseInt(JOptionPane.showInputDialog("Ingresa el día del turno."));
 		} while (!validarInt(dia));
 		
-		int hora;
 		do {
 			hora = Integer.parseInt(JOptionPane.showInputDialog("Ingresa hora del turno."));
 		} while (!validarInt(hora));
 		
-		int minuto;
 		do {
 			minuto = Integer.parseInt(JOptionPane.showInputDialog("Ingresa el minuto del turno."));
 		} while (!validarInt(minuto));
 		
-		this.fechaTurno = LocalDate.of(2024, mes, dia);
-		this.horaTurno = LocalTime.of(hora, minuto);
-		
-		Pacientes paciente = new Pacientes(this.nombreAnimal, this.animal, this.raza, this.edad, this.nombreDueno, this.telefono, this.fechaTurno, this.horaTurno);
+		Pacientes paciente = new Pacientes(nombreAnimal, animal, raza, edad, nombreDueno, telefono, LocalDate.of(2024, mes, dia), LocalTime.of(hora, minuto));
 		
 		return paciente;
+	}
+	
+	public void empezarTurno() {
+		String[] procedimientos = { "Balanza", "Termómetro", "Revisar", "Observar", "Ver informe", "Salir" };
+		JOptionPane.showMessageDialog(null, "Nombre: " + this.nombreAnimal + "\nAnimal: " + this.animal + "\nRaza: " + this.raza + "\nEdad: " + this.edad + "\nNombre del dueño: " + this.nombreDueno + "\nTeléfono: " + this.telefono + "\nFecha: " + this.fechaTurno + "\nHora: " + this.horaTurno);
+		String informe = "Informe de " + this.nombreAnimal;
+		int opcion;
+		
+		do {
+			opcion = JOptionPane.showOptionDialog(null, "Bienvenido", "Menu Principal", 0, JOptionPane.DEFAULT_OPTION, null, procedimientos, procedimientos[0]);
+			
+			switch (opcion) {
+			case 0:
+				JOptionPane.showMessageDialog(null, "Pesando a " + this.nombreAnimal + "...");
+				this.peso = (double)(Math.random() * 13 + 1);
+				informe = informe + "\nPESO\n" + "Peso: " + this.peso;
+				break;
+			case 1:
+				JOptionPane.showMessageDialog(null, "Tomando temperatura corporal de " + this.nombreAnimal + "...");
+				this.temperatura = (double)(Math.random() * 36 + 5);
+				if (this.temperatura > 37) {
+					informe = informe + "\nTEMPERATURA\n" + "Temperatura: " + this.temperatura + "\nDebe tomar medicamento cada 8 horas.";
+				} else {
+					informe = informe + "\nTEMPERATURA\n" + "Temperatura: " + this.temperatura;
+				}
+				break;
+			case 2:
+				JOptionPane.showMessageDialog(null, "Revisando a " + this.nombreAnimal + "...");
+				this.contracturas = (int)(Math.random());
+				if (this.contracturas == 0) {
+					informe = informe + "\nCONTRACTURAS\n" + "No tiene contracturas.";
+				} else {
+					informe = informe + "\nCONTRACTURAS\n" + "Tiene contracturas en la espalda. Debe hacer una radiografía.";
+				}
+				break;
+			case 3:
+				JOptionPane.showMessageDialog(null, "Observando a " + this.nombreAnimal + "...");
+				this.observaciones = (int)(Math.random() * 4);
+				switch (this.observaciones) {
+				case 0:
+					informe = informe + "\nOBSERVACIONES\n" + "Parece estar bien.";
+					break;
+				case 1:
+					informe = informe + "\nOBSERVACIONES\n" + "Tiene un problema respiratorio. Debe volver.";
+					int mes = Integer.parseInt(JOptionPane.showInputDialog("Ingresa el mes del próximo turno"));
+					int dia = Integer.parseInt(JOptionPane.showInputDialog("Ingresa el día del próximo turno"));
+					int hora = Integer.parseInt(JOptionPane.showInputDialog("Ingresa el hora del próximo turno"));
+					int minuto = Integer.parseInt(JOptionPane.showInputDialog("Ingresa el minuto del próximo turno"));
+					this.fechaTurno = LocalDate.of(2024, mes, dia);
+					this.horaTurno = LocalTime.of(hora, minuto);
+					informe = informe + "\nPróximo turno: " + this.fechaTurno + " - " + this.horaTurno;
+					break;
+				case 2:
+					informe = informe + "\nOBSERVACIONES\n" + "Tiene un problema cardíaco. Debe ir al cardiólogo.";
+					break;
+				case 3:
+					informe = informe + "\nOBSERVACIONES\n" + "Tiene un problema en los huesos. Debe ir al traumatólogo.";
+					break;
+				}
+				break;
+			case 4:
+				JOptionPane.showMessageDialog(null, informe);
+				break;
+			}
+		} while (opcion != 5);
 	}
 	
 	public static boolean validarCadena(String cadena) {
